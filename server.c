@@ -10,6 +10,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+// #include "file.h"
+
 char webpage[] =
 "HTTP/1.1 200 OK\r\n"
 "Content-Type:text/html; charset=UTF-8\r\n\r\n" 
@@ -25,7 +27,13 @@ char webpage[] =
 "</body>"
 "</html>";
 
+// void f(int);
+// void cc(int i){
+// 	f(i);
+// }
+
 int main(){
+	// cc(600);
 	struct sockaddr_in server_addr, client_addr;
 	socklen_t sin_len = sizeof(client_addr);
 	int fd_server, fd_client;
@@ -77,11 +85,13 @@ int main(){
 				fdimg = open("favicon.png", O_RDONLY);
 				sendfile(fd_client, fdimg, NULL, 4000);
 				close(fdimg);
+				
 			}
 			else if(!strncmp(buf, "GET /image.jpg", 16)){
 				fdimg = open("favicon.jpg", O_RDONLY);
 				sendfile(fd_client, fdimg, NULL, 6000);
 				close(fdimg);	
+				
 			}else{
 				write(fd_client, webpage, sizeof(webpage) -1);
 			}
